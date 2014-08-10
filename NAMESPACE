@@ -1,3 +1,4 @@
 useDynLib(asciir)
 import(Rcpp)
 export(char2mat)
+export(viewmat)
