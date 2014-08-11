@@ -31,7 +31,7 @@ BEGIN_RCPP
     get_global_metrics(face, &maxbrY, &maxtail);
     
     // Determine baseline: pixels from top canvas edge to baseline
-    int baseline = maxbrY + (pixel_size - maxbrY - maxtail) / 2;
+    int baseline = pixel_size - maxtail;
 
     slot = face->glyph;
     error = FT_Load_Char(face, unicode[0], FT_LOAD_RENDER);
@@ -43,7 +43,7 @@ BEGIN_RCPP
     int rows = slot->bitmap.rows;
     int xmax = left + width;
     int ymax = top + rows;
-    
+
     NumericMatrix mat(pixel_size, pixel_size);
     for(int i = top, p = 0; i < ymax; i++, p++)
     {
