@@ -8,5 +8,5 @@ Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: More about what it does (maybe more than one line)
 License: What Licence is it under ?
 Imports:
-    Rcpp (>= 0.11.0)
+    Rcpp (>= 0.11.0), sysfonts
 LinkingTo: Rcpp
