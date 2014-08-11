@@ -1,29 +1,25 @@
 #include <Rcpp.h>
+#include <string>
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#include <string>
+#include "fonts.h"
+
 using namespace Rcpp;
 using std::string;
 
-RcppExport SEXP char2mat(SEXP _chr, SEXP _dim)
+RcppExport SEXP char2mat(SEXP _chr, SEXP _dim, SEXP _family)
 {
 BEGIN_RCPP
     string str = as<string>(_chr);
     char ch = str[0];
     int pixel_size = as<int>(_dim);
-    
-    FT_Library    library;
-    FT_Face       face;
+    string family = as<string>(_family);
+
+    FT_Face       face = get_ft_face(family);
     FT_GlyphSlot  slot;
     FT_Error      error;
-
-    char*         filename = "/home/qyx/consola.ttf";
-    error = FT_Init_FreeType(&library);              /* initialize library */
-    /* error handling omitted */
-
-    error = FT_New_Face(library, filename, 0, &face);/* create face object */
-    /* error handling omitted */
 
     /* use 50 pixels */
     error = FT_Set_Pixel_Sizes(face, pixel_size, pixel_size);
@@ -51,8 +47,6 @@ BEGIN_RCPP
             mat(i, j) = slot->bitmap.buffer[p * width + q];
         }
     }
-    FT_Done_Face    ( face );
-    FT_Done_FreeType( library );
 
     return mat;
 END_RCPP
