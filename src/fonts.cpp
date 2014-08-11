@@ -1,4 +1,5 @@
 #include "fonts.h"
+#include "utf8.h"
 
 using namespace Rcpp;
 using std::string;
@@ -54,3 +55,27 @@ void get_global_metrics(FT_Face face, int *maxbrY, int *maxtail)
         if(tail > *maxtail)  *maxtail = tail;
     }
 }
+
+int utf8toucs4(unsigned int *ucs4, const char *utf8, int n)
+{
+    int len = 0;
+    int step = 0;
+    int err;
+    unsigned int *p1;
+    const char * p2;
+    for(p1 = ucs4, p2 = utf8; ; p1++, p2 += step)
+    {
+        /* if we meet '\0' */
+        if(!p2[0]) break;
+        err = TY_(DecodeUTF8BytesToChar)(p1, p2[0], p2 + 1, &step);
+        if(err)
+        {
+            Rf_warning("UTF-8 decoding error for '%s'", utf8);
+            *p1 = 0xFFFD; /* replacement char */
+        }
+        len++;
+        if(len >= n) break;
+    }
+    return len;
+}
+
