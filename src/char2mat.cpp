@@ -13,7 +13,9 @@ RcppExport SEXP char2mat(SEXP _chr, SEXP _dim, SEXP _family)
 {
 BEGIN_RCPP
     string str = as<string>(_chr);
-    char ch = str[0];
+    int maxlen = str.length();
+    unsigned int *unicode = new unsigned int[maxlen + 1];
+    int nchar = utf8toucs4(unicode, str.c_str(), maxlen);
     int pixel_size = as<int>(_dim);
     string family = as<string>(_family);
 
@@ -32,28 +34,30 @@ BEGIN_RCPP
     int baseline = maxbrY + (pixel_size - maxbrY - maxtail) / 2;
 
     slot = face->glyph;
-    error = FT_Load_Char(face, ch, FT_LOAD_RENDER);
+    error = FT_Load_Char(face, unicode[0], FT_LOAD_RENDER);
     
-    int left = slot->bitmap_left;
+    int advance = slot->advance.x / 64;
+    int left = slot->bitmap_left + (pixel_size - advance) / 2;
     int top = baseline - slot->bitmap_top;
     int width = slot->bitmap.width;
     int rows = slot->bitmap.rows;
     int xmax = left + width;
     int ymax = top + rows;
-    int advance = slot->advance.x / 64;
     
-    NumericMatrix mat(pixel_size, advance);
+    NumericMatrix mat(pixel_size, pixel_size);
     for(int i = top, p = 0; i < ymax; i++, p++)
     {
         for(int j = left, q = 0; j < xmax; j++, q++)
         {
-            if(i < 0 || j < 0 || i >= pixel_size || j >= advance)
+            if(i < 0 || j < 0 || i >= pixel_size || j >= pixel_size)
                 continue;
 
             mat(i, j) = slot->bitmap.buffer[p * width + q];
         }
     }
 
+    delete [] unicode;
+    
     return mat;
 END_RCPP
 }
