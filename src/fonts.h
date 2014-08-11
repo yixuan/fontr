@@ -15,6 +15,8 @@ typedef struct fontDesc {
 
 int utf8toucs4(unsigned int *ucs4, const char *utf8, int n);
 FT_Face get_ft_face(string &family);
+void get_char_metrics(FT_Face face, char ch, int *bearingY, int *tail);
+void get_global_metrics(FT_Face face, int *maxbrY, int *maxtail);
 
 #endif /* FONTS_H_INCLUDED */
 

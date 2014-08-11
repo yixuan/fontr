@@ -33,3 +33,24 @@ FT_Face get_ft_face(string &family)
     
     return font->face;
 }
+
+void get_char_metrics(FT_Face face, char ch, int *bearingY, int *tail)
+{
+    FT_Error error = FT_Load_Char(face, ch, FT_LOAD_RENDER);
+    *bearingY = face->glyph->bitmap_top;
+    *tail = face->glyph->bitmap.rows - *bearingY;
+}
+
+// Consider all visible ASCII characters
+void get_global_metrics(FT_Face face, int *maxbrY, int *maxtail)
+{
+    int bearingY, tail;
+    *maxbrY = 0;
+    *maxtail = 0;
+    for(char ch = '!'; ch <= '~'; ch++)
+    {
+        get_char_metrics(face, ch, &bearingY, &tail);
+        if(bearingY > *maxbrY)  *maxbrY = bearingY;
+        if(tail > *maxtail)  *maxtail = tail;
+    }
+}
