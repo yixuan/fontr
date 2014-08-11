@@ -2,6 +2,8 @@
 #define FONTS_H_INCLUDED
 
 #include <Rcpp.h>
+#include <string>
+using std::string;
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -12,7 +14,7 @@ typedef struct fontDesc {
 } FontDesc;
 
 int utf8toucs4(unsigned int *ucs4, const char *utf8, int n);
-FT_Face GetFTFace(const pGEcontext gc);
+FT_Face get_ft_face(string &family);
 
 #endif /* FONTS_H_INCLUDED */
 

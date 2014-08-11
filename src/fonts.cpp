@@ -1,5 +1,3 @@
-#include <Rcpp.h>
-#include <string>
 #include "fonts.h"
 
 using namespace Rcpp;
