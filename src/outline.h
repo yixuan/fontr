@@ -10,20 +10,17 @@
 // These are data passed to outline drawing handlers
 class OutlineData
 {
-private:
-    double units_per_EM;
-    int nseg;
-public:
+protected:
     std::vector<double> *x;
     std::vector<double> *y;
     std::vector<char> *type;
-    
+    double units_per_EM;
+public:
     OutlineData(std::vector<double> *_x,
                 std::vector<double> *_y,
                 std::vector<char> *_type,
-                int _units,
-                int _nseg = 0) :
-        x(_x), y(_y), type(_type), units_per_EM(_units), nseg(_nseg) {}
+                int _units) :
+        x(_x), y(_y), type(_type), units_per_EM(_units) {}
     
     void append_point(const FT_Vector *_point, char _type)
     {
