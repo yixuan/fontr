@@ -1,9 +1,10 @@
-char2mat = function(ch = "A", dim = 50, family = "mono")
+char2mat = function(ch = "A", family = "mono", fontface = 1, dim = 50)
 {
     ch = as.character(ch)
-    dim = as.integer(dim)
     family = as.character(family)
-    .Call("char2mat", ch, dim, family, PACKAGE = "asciir")
+    fontface = as.integer(fontface)
+    dim = as.integer(dim)
+    .Call("char2mat", ch, family, fontface, dim, PACKAGE = "asciir")
 }
 
 viewmat = function(mat)

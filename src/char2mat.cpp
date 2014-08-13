@@ -9,17 +9,18 @@
 using namespace Rcpp;
 using std::string;
 
-RcppExport SEXP char2mat(SEXP _chr, SEXP _dim, SEXP _family)
+RcppExport SEXP char2mat(SEXP _chr, SEXP _family, SEXP _fontface, SEXP _dim)
 {
 BEGIN_RCPP
     string str = as<string>(_chr);
     int maxlen = str.length();
     unsigned int *unicode = new unsigned int[maxlen + 1];
     int nchar = utf8toucs4(unicode, str.c_str(), maxlen);
-    int pixel_size = as<int>(_dim);
     string family = as<string>(_family);
+    int fontface = as<int>(_fontface);
+    int pixel_size = as<int>(_dim);
 
-    FT_Face       face = get_ft_face(family);
+    FT_Face       face = get_ft_face(family, fontface);
     FT_GlyphSlot  slot;
     FT_Error      error;
 

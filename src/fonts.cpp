@@ -4,7 +4,7 @@
 using namespace Rcpp;
 using std::string;
 
-FT_Face get_ft_face(string &family)
+FT_Face get_ft_face(string &family, int fontface)
 {
     // Get the namespace environment of package "sysfonts"
     Environment sysfonts = Environment::namespace_env("sysfonts");
@@ -29,7 +29,10 @@ FT_Face get_ft_face(string &family)
         i = 2; // mono
     // Data stored in font list are pointers to FontDesc structure
     List font_selected = font_list[i];
-    SEXP extPtr = font_selected[0];
+    
+    if(fontface < 1 || fontface > 5)
+        fontface = 1;
+    SEXP extPtr = font_selected[fontface - 1];
     FontDesc *font = (FontDesc *) R_ExternalPtrAddr(extPtr);
     
     return font->face;

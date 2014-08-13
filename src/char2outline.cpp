@@ -10,7 +10,7 @@
 using namespace Rcpp;
 using std::string;
 
-RcppExport SEXP char2outline(SEXP _chr, SEXP _family)
+RcppExport SEXP char2outline(SEXP _chr, SEXP _family, SEXP _fontface)
 {
 BEGIN_RCPP
     string str = as<string>(_chr);
@@ -18,8 +18,9 @@ BEGIN_RCPP
     unsigned int *unicode = new unsigned int[maxlen + 1];
     int nchar = utf8toucs4(unicode, str.c_str(), maxlen);
     string family = as<string>(_family);
+    int fontface = as<int>(_fontface);
 
-    FT_Face       face = get_ft_face(family);
+    FT_Face       face = get_ft_face(family, fontface);
     FT_GlyphSlot  slot;
     FT_Error      error;
 
@@ -46,7 +47,7 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP char2seg(SEXP _chr, SEXP _family, SEXP _nseg)
+RcppExport SEXP char2seg(SEXP _chr, SEXP _family, SEXP _fontface, SEXP _nseg)
 {
 BEGIN_RCPP
     string str = as<string>(_chr);
@@ -54,9 +55,10 @@ BEGIN_RCPP
     unsigned int *unicode = new unsigned int[maxlen + 1];
     int nchar = utf8toucs4(unicode, str.c_str(), maxlen);
     string family = as<string>(_family);
+    int fontface = as<int>(_fontface);
     int nseg = as<int>(_nseg);
 
-    FT_Face       face = get_ft_face(family);
+    FT_Face       face = get_ft_face(family, fontface);
     FT_GlyphSlot  slot;
     FT_Error      error;
 
