@@ -12,6 +12,7 @@ class OutlineData
 {
 private:
     double units_per_EM;
+    int nseg;
 public:
     std::vector<double> *x;
     std::vector<double> *y;
@@ -20,14 +21,15 @@ public:
     OutlineData(std::vector<double> *_x,
                 std::vector<double> *_y,
                 std::vector<char> *_type,
-                int _units) :
-        x(_x), y(_y), type(_type), units_per_EM(_units) {}
+                int _units,
+                int _nseg = 0) :
+        x(_x), y(_y), type(_type), units_per_EM(_units), nseg(_nseg) {}
     
     void append_point(const FT_Vector *_point, char _type)
     {
-        x->push_back(_point->x / units_per_EM);
-        y->push_back(_point->y / units_per_EM);
-        type->push_back(_type);
+        if(x)  x->push_back(_point->x / units_per_EM);
+        if(y)  y->push_back(_point->y / units_per_EM);
+        if(type)  type->push_back(_type);
     }
 };
 
