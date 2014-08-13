@@ -22,7 +22,7 @@ public:
                 int _units) :
         x(_x), y(_y), type(_type), units_per_EM(_units) {}
     
-    void append_scaled_point(double _x, double _y, char _type)
+    void append_scaled_point(double _x, double _y, char _type = 0)
     {
         if(x)  x->push_back(_x);
         if(y)  y->push_back(_y);
@@ -35,6 +35,19 @@ public:
                             _point->y / units_per_EM,
                             _type);
     }
+};
+
+
+class SegData: public OutlineData
+{
+private:
+    int nseg;
+public:
+    SegData(std::vector<double> *_x,
+            std::vector<double> *_y,
+            int _units,
+            int _nseg) :
+        OutlineData(_x, _y, NULL, _units), nseg(_nseg) {}
 };
 
 // Outline drawing functions used by FT_Outline_Decompose()
