@@ -22,11 +22,18 @@ public:
                 int _units) :
         x(_x), y(_y), type(_type), units_per_EM(_units) {}
     
-    void append_point(const FT_Vector *_point, char _type)
+    void append_scaled_point(double _x, double _y, char _type)
     {
-        if(x)  x->push_back(_point->x / units_per_EM);
-        if(y)  y->push_back(_point->y / units_per_EM);
+        if(x)  x->push_back(_x);
+        if(y)  y->push_back(_y);
         if(type)  type->push_back(_type);
+    }
+    
+    void append_ft_point(const FT_Vector *_point, char _type)
+    {
+        append_scaled_point(_point->x / units_per_EM,
+                            _point->y / units_per_EM,
+                            _type);
     }
 };
 
