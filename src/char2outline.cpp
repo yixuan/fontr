@@ -45,3 +45,38 @@ BEGIN_RCPP
                              Named("type") = wrap(type));
 END_RCPP
 }
+
+RcppExport SEXP char2seg(SEXP _chr, SEXP _family, SEXP _nseg)
+{
+BEGIN_RCPP
+    string str = as<string>(_chr);
+    int maxlen = str.length();
+    unsigned int *unicode = new unsigned int[maxlen + 1];
+    int nchar = utf8toucs4(unicode, str.c_str(), maxlen);
+    string family = as<string>(_family);
+    int nseg = as<int>(_nseg);
+
+    FT_Face       face = get_ft_face(family);
+    FT_GlyphSlot  slot;
+    FT_Error      error;
+
+    slot = face->glyph;
+    error = FT_Load_Char(face, unicode[0], FT_LOAD_NO_SCALE);
+    
+    FT_Outline_Funcs funs = {segMoveTo,
+                             segLineTo,
+                             segConicTo,
+                             segCubicTo,
+                             0,
+                             0};
+    
+    std::vector<double> x;
+    std::vector<double> y;
+    SegData data(&x, &y, face->units_per_EM, nseg);
+    
+    FT_Outline_Decompose(&slot->outline, &funs, &data);
+    
+    return DataFrame::create(Named("x") = wrap(x),
+                             Named("y") = wrap(y));
+END_RCPP
+}
