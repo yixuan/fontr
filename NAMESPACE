@@ -1,4 +1,4 @@
-useDynLib(asciir)
+useDynLib(fontr)
 import(Rcpp)
 import(sysfonts)
 export(char2mat)

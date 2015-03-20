@@ -4,7 +4,7 @@ char2mat = function(ch = "A", family = "mono", fontface = 1, size = 50)
     family = as.character(family)
     fontface = as.integer(fontface)
     size = as.integer(size)
-    .Call("char2mat", ch, family, fontface, size, PACKAGE = "asciir")
+    .Call("char2mat", ch, family, fontface, size, PACKAGE = "fontr")
 }
 
 viewmat = function(mat)
