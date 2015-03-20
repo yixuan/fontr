@@ -6,19 +6,20 @@
 
 #include "fonts.h"
 
-using namespace Rcpp;
+using Rcpp::as;
+using Rcpp::NumericMatrix;
 using std::string;
 
-RcppExport SEXP char2mat(SEXP _chr, SEXP _family, SEXP _fontface, SEXP _dim)
+RcppExport SEXP char2mat(SEXP chr_, SEXP family_, SEXP fontface_, SEXP dim_)
 {
 BEGIN_RCPP
-    string str = as<string>(_chr);
+    string str = as<string>(chr_);
     int maxlen = str.length();
     unsigned int *unicode = new unsigned int[maxlen + 1];
     int nchar = utf8toucs4(unicode, str.c_str(), maxlen);
-    string family = as<string>(_family);
-    int fontface = as<int>(_fontface);
-    int pixel_size = as<int>(_dim);
+    string family = as<string>(family_);
+    int fontface = as<int>(fontface_);
+    int pixel_size = as<int>(dim_);
 
     FT_Face       face = get_ft_face(family, fontface);
     FT_GlyphSlot  slot;
@@ -28,11 +29,11 @@ BEGIN_RCPP
     error = FT_Set_Pixel_Sizes(face, pixel_size, pixel_size);
     /* error handling omitted */
 
-    int maxbrY, maxtail;
-    get_global_metrics(face, &maxbrY, &maxtail);
+    int max_bearingY, max_tail;
+    get_global_metrics(face, &max_bearingY, &max_tail);
     
     // Determine baseline: pixels from top canvas edge to baseline
-    int baseline = pixel_size - maxtail;
+    int baseline = pixel_size - max_tail;
 
     slot = face->glyph;
     error = FT_Load_Char(face, unicode[0], FT_LOAD_RENDER);

@@ -38,6 +38,9 @@ FT_Face get_ft_face(string &family, int fontface)
     return font->face;
 }
 
+// bearingY is the vertical distance from the baseline to the top of the glyph
+// tail is the vertical distance from the baseline to the bottom of the glyph
+// Both are positive integers
 void get_char_metrics(FT_Face face, char ch, int *bearingY, int *tail)
 {
     FT_Error error = FT_Load_Char(face, ch, FT_LOAD_RENDER);
@@ -46,16 +49,16 @@ void get_char_metrics(FT_Face face, char ch, int *bearingY, int *tail)
 }
 
 // Consider all visible ASCII characters
-void get_global_metrics(FT_Face face, int *maxbrY, int *maxtail)
+void get_global_metrics(FT_Face face, int *max_bearingY, int *max_tail)
 {
     int bearingY, tail;
-    *maxbrY = 0;
-    *maxtail = 0;
+    *max_bearingY = 0;
+    *max_tail = 0;
     for(char ch = '!'; ch <= '~'; ch++)
     {
         get_char_metrics(face, ch, &bearingY, &tail);
-        if(bearingY > *maxbrY)  *maxbrY = bearingY;
-        if(tail > *maxtail)  *maxtail = tail;
+        if(bearingY > *max_bearingY)  *max_bearingY = bearingY;
+        if(tail > *max_tail)  *max_tail = tail;
     }
 }
 
