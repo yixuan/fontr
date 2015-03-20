@@ -41,24 +41,29 @@ FT_Face get_ft_face(string &family, int fontface)
 // bearingY is the vertical distance from the baseline to the top of the glyph
 // tail is the vertical distance from the baseline to the bottom of the glyph
 // Both are positive integers
-void get_char_metrics(FT_Face face, char ch, int *bearingY, int *tail)
+void get_char_metrics(FT_Face face, unsigned int ch,
+                      int *bearingY, int *tail, int *advance)
 {
     FT_Error error = FT_Load_Char(face, ch, FT_LOAD_RENDER);
     *bearingY = face->glyph->bitmap_top;
     *tail = face->glyph->bitmap.rows - *bearingY;
+    *advance = face->glyph->advance.x / 64;
 }
 
-// Consider all visible ASCII characters
-void get_global_metrics(FT_Face face, int *max_bearingY, int *max_tail)
+void get_string_metrics(FT_Face face, const unsigned int *str, int nchar,
+                        int *bearingY, int *tail, int *advance)
 {
-    int bearingY, tail;
-    *max_bearingY = 0;
-    *max_tail = 0;
-    for(char ch = '!'; ch <= '~'; ch++)
+    int char_bearingY, char_tail, char_advance;
+    *bearingY = 0;
+    *tail = 0;
+    *advance = 0;
+
+    for(int i = 0; i < nchar; i++)
     {
-        get_char_metrics(face, ch, &bearingY, &tail);
-        if(bearingY > *max_bearingY)  *max_bearingY = bearingY;
-        if(tail > *max_tail)  *max_tail = tail;
+        get_char_metrics(face, str[i], &char_bearingY, &char_tail, &char_advance);
+        if(char_bearingY > *bearingY)  *bearingY = char_bearingY;
+        if(char_tail > *tail)  *tail = char_tail;
+        *advance += char_advance;
     }
 }
 
