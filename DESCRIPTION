@@ -1,12 +1,18 @@
 Package: fontr
 Type: Package
-Title: What the package does (short line)
+Title: Extracting Glyphs From Font Files
 Version: 0.1
-Date: 2014-08-09
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What Licence is it under ?
+Date: 2015-09-24
+Authors@R: c(person(given = "Yixuan", family = "Qiu",
+                    role = c("aut", "cre"),
+                    email = "yixuan.qiu@cos.name"),
+             person(given = "Dave", family = "Raggett",
+                    role = c("ctb", "cph"),
+                    comment = "utf8.h and utf8.c files"))
+Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
+Description: Extracting glyphs (outline or bitmap) from fonts
+    loaded by the 'sysfonts' package.
+License: MPL (>= 2.0)
 Imports:
     Rcpp (>= 0.11.0), sysfonts
 LinkingTo: Rcpp
