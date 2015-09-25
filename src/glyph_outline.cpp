@@ -16,7 +16,7 @@ BEGIN_RCPP
     string str = as<string>(_chr);
     int maxlen = str.length();
     unsigned int *unicode = new unsigned int[maxlen + 1];
-    int nchar = utf8toucs4(unicode, str.c_str(), maxlen);
+    utf8toucs4(unicode, str.c_str(), maxlen);
     string family = as<string>(_family);
     int fontface = as<int>(_fontface);
 
@@ -53,7 +53,7 @@ BEGIN_RCPP
     string str = as<string>(_chr);
     int maxlen = str.length();
     unsigned int *unicode = new unsigned int[maxlen + 1];
-    int nchar = utf8toucs4(unicode, str.c_str(), maxlen);
+    utf8toucs4(unicode, str.c_str(), maxlen);
     string family = as<string>(_family);
     int fontface = as<int>(_fontface);
     int nseg = as<int>(_nseg);
