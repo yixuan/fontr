@@ -10,7 +10,7 @@
 using namespace Rcpp;
 using std::string;
 
-RcppExport SEXP char2outline(SEXP _chr, SEXP _family, SEXP _fontface)
+RcppExport SEXP glyph_outline(SEXP _chr, SEXP _family, SEXP _fontface)
 {
 BEGIN_RCPP
     string str = as<string>(_chr);
@@ -47,7 +47,7 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP char2seg(SEXP _chr, SEXP _family, SEXP _fontface, SEXP _nseg)
+RcppExport SEXP glyph_polygon(SEXP _chr, SEXP _family, SEXP _fontface, SEXP _nseg)
 {
 BEGIN_RCPP
     string str = as<string>(_chr);
