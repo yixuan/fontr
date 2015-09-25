@@ -34,8 +34,8 @@ void write_matrix(const FT_Bitmap *bitmap, IntegerMatrix mat, int mi, int mj)
     }
 }
 
-RcppExport SEXP char2mat(SEXP chr_, SEXP family_, SEXP fontface_,
-                         SEXP pixel_size_, SEXP rot_)
+RcppExport SEXP glyph_bitmap(SEXP chr_, SEXP family_, SEXP fontface_,
+                             SEXP pixel_size_, SEXP rot_)
 {
 BEGIN_RCPP
     string str = as<string>(chr_);
