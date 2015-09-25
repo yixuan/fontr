@@ -10,10 +10,10 @@ glyph_bitmap = function(ch = "A", family = "mono", face = 1, pixel_size = 50, ro
     mat
 }
 
-plot.glyph_bitmap = function(glyph)
+plot.glyph_bitmap = function(glyph, ...)
 {
     m = nrow(glyph)
     n = ncol(glyph)
     image(1:n, 1:m, t(glyph[m:1, ]), col = grey((45:0) / 50), asp = 1,
-          axes = FALSE, xlab = "", ylab = "")
+          axes = FALSE, xlab = "", ylab = "", ...)
 }
