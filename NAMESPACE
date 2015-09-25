@@ -1,7 +1,11 @@
 useDynLib(fontr)
 import(Rcpp)
 import(sysfonts)
-export(char2mat)
-export(viewmat)
+
+importFrom(graphics, plot)
+
+export(glyph_bitmap)
+S3method(plot, glyph_bitmap)
+
 export(char2outline)
 export(char2seg)
