@@ -14,7 +14,7 @@ protected:
     std::vector<double> *x;
     std::vector<double> *y;
     std::vector<char> *type;
-    double units_per_EM;
+    const double units_per_EM;
 public:
     OutlineData(std::vector<double> *_x,
                 std::vector<double> *_y,
@@ -51,7 +51,7 @@ public:
 class SegData: public OutlineData
 {
 private:
-    int nseg;
+    const int nseg;
 public:
     SegData(std::vector<double> *_x,
             std::vector<double> *_y,
