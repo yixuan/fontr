@@ -19,6 +19,12 @@ glyph_polygon = function(ch = "a", family = "sans", face = 1, nseg = 10)
 
 plot.glyph_polygon = function(glyph, ...)
 {
-    plot(1, type = "n", xlim = c(0, 1), ylim = c(0, 1), asp = 1, ...)
+    x0 = min(0, glyph$x, na.rm = TRUE)
+    x1 = max(1, glyph$x, na.rm = TRUE)
+    y0 = min(0, glyph$y, na.rm = TRUE)
+    y1 = max(1, glyph$y, na.rm = TRUE)
+    plot(1, type = "n", xlim = c(x0, x1), ylim = c(y0, y1),
+         xlab = "x", ylab = "y", asp = 1, ...)
+    rect(0, 0, 1, 1, lty = 2)
     polypath(glyph$x, glyph$y)
 }
