@@ -109,7 +109,7 @@ plot(ch_n)
 ```
 
 <div align="center">
-  <img src="http://i.imgur.com/Y6CqPnt.png" alt="fontr_n" />
+  <img src="http://i.imgur.com/Y6CqPnt.png" width="500" alt="fontr_n" />
 </div>
 
 The returned data frame contains the x and y coordinates of the vertices of
@@ -129,5 +129,5 @@ plot(glyph_bitmap("Welcome", family = "lobster", rot = 30))
 ```
 
 <div align="center">
-  <img src="http://i.imgur.com/HYePkvZ.png" alt="fontr_welcome" />
+  <img src="http://i.imgur.com/HYePkvZ.png" width="500" alt="fontr_welcome" />
 </div>
