@@ -24,9 +24,9 @@ A data frame with class "glyph_outline".
 
         \item{M}{Move the pen to the point}
         \item{L}{Draw a straight line to the point}
-        \item{Q}{Draw a quadratic Bézier curve to the point, followed by a
+        \item{Q}{Draw a quadratic Bezier curve to the point, followed by a
                  "B" row that gives the coordinates of the control point}
-        \item{C}{Draw a cubic Bézier curve to the point, followed by two
+        \item{C}{Draw a cubic Bezier curve to the point, followed by two
                  "B" rows that give the coordinates of the control points}
 
         More details can be found in sections 8.3.4 to 8.3.7 of the SVG

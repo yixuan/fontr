@@ -16,9 +16,9 @@
 #'         
 #'         \item{M}{Move the pen to the point}
 #'         \item{L}{Draw a straight line to the point}
-#'         \item{Q}{Draw a quadratic Bézier curve to the point, followed by a
+#'         \item{Q}{Draw a quadratic Bezier curve to the point, followed by a
 #'                  "B" row that gives the coordinates of the control point}
-#'         \item{C}{Draw a cubic Bézier curve to the point, followed by two
+#'         \item{C}{Draw a cubic Bezier curve to the point, followed by two
 #'                  "B" rows that give the coordinates of the control points}
 #'         
 #'         More details can be found in sections 8.3.4 to 8.3.7 of the SVG
@@ -95,6 +95,9 @@ glyph_polygon = function(ch = "a", family = "sans", face = "regular", nseg = 10)
 #' This function plots glyph outline polygons of class "glyph_polygon", typically returned
 #' by the function \code{\link{glyph_polygon}()}.
 #' 
+#' @param x A glyph outline object of class "glyph_polygon"
+#' @param \dots Additional arguments passed to \code{plot()}
+#' 
 #' @export
 #' 
 #' @author Yixuan Qiu <\url{http://statr.me/}>
@@ -104,14 +107,14 @@ glyph_polygon = function(ch = "a", family = "sans", face = "regular", nseg = 10)
 #' plot(R)
 #' 
 #' @seealso \code{\link{glyph_polygon}()}
-plot.glyph_polygon = function(glyph, ...)
+plot.glyph_polygon = function(x, ...)
 {
-    x0 = min(0, glyph$x, na.rm = TRUE)
-    x1 = max(1, glyph$x, na.rm = TRUE)
-    y0 = min(0, glyph$y, na.rm = TRUE)
-    y1 = max(1, glyph$y, na.rm = TRUE)
+    x0 = min(0, x$x, na.rm = TRUE)
+    x1 = max(1, x$x, na.rm = TRUE)
+    y0 = min(0, x$y, na.rm = TRUE)
+    y1 = max(1, x$y, na.rm = TRUE)
     plot(1, type = "n", xlim = c(x0, x1), ylim = c(y0, y1),
          xlab = "x", ylab = "y", asp = 1, ...)
     rect(0, 0, 1, 1, lty = 2)
-    polypath(glyph$x, glyph$y)
+    polypath(x$x, x$y)
 }

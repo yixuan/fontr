@@ -45,6 +45,9 @@ glyph_bitmap = function(ch = "A", family = "mono", face = "regular", pixel_size 
 #' This function plots a bitmap glyph of class "glyph_bitmap", typically returned
 #' by the function \code{\link{glyph_bitmap}()}.
 #' 
+#' @param x A bitmap glyph of class "glyph_bitmap"
+#' @param \dots Additional arguments passed to \code{image()}
+#' 
 #' @export
 #' 
 #' @author Yixuan Qiu <\url{http://statr.me/}>
@@ -54,10 +57,10 @@ glyph_bitmap = function(ch = "A", family = "mono", face = "regular", pixel_size 
 #' plot(f)
 #' 
 #' @seealso \code{\link{glyph_bitmap}()}
-plot.glyph_bitmap = function(glyph, ...)
+plot.glyph_bitmap = function(x, ...)
 {
-    m = nrow(glyph)
-    n = ncol(glyph)
-    image(1:n, 1:m, t(glyph[m:1, ]), col = grey((45:0) / 50), asp = 1,
+    m = nrow(x)
+    n = ncol(x)
+    image(1:n, 1:m, t(x[m:1, ]), col = grey((45:0) / 50), asp = 1,
           axes = FALSE, xlab = "", ylab = "", ...)
 }

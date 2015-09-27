@@ -4,7 +4,12 @@
 \alias{plot.glyph_bitmap}
 \title{Plotting function for bitmap glyph}
 \usage{
-\method{plot}{glyph_bitmap}(glyph, ...)
+\method{plot}{glyph_bitmap}(x, ...)
+}
+\arguments{
+\item{x}{A bitmap glyph of class "glyph_bitmap"}
+
+\item{\dots}{Additional arguments passed to \code{image()}}
 }
 \description{
 This function plots a bitmap glyph of class "glyph_bitmap", typically returned

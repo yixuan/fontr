@@ -4,7 +4,12 @@
 \alias{plot.glyph_polygon}
 \title{Plotting function for glyph outline in polygon form}
 \usage{
-\method{plot}{glyph_polygon}(glyph, ...)
+\method{plot}{glyph_polygon}(x, ...)
+}
+\arguments{
+\item{x}{A glyph outline object of class "glyph_polygon"}
+
+\item{\dots}{Additional arguments passed to \code{plot()}}
 }
 \description{
 This function plots glyph outline polygons of class "glyph_polygon", typically returned
