@@ -1,3 +1,36 @@
+#' Extracting the glyph outline of a character
+#' 
+#' This function extracts the outline of character glyphs contained in a font.
+#' 
+#' @param ch     A character whose glyph is to be extracted.
+#' @param family The family of the font. See
+#'               \code{\link[sysfonts]{font.families}()}.
+#' @param face   The font face. Possible values are "regular", "bold", "italic"
+#'               and "bolditalic".
+#' 
+#' @return A data frame with class "glyph_outline".
+#'         Each row of the data frame contains two numeric values, giving the
+#'         x and y coordinates of a point, and a character, indicating the action
+#'         to take on that point in order to draw the outline.
+#'         The meaning of different characters are given below:
+#'         
+#'         \item{M}{Move the pen to the point}
+#'         \item{L}{Draw a straight line to the point}
+#'         \item{Q}{Draw a quadratic Bézier curve to the point, followed by a
+#'                  "B" row that gives the coordinates of the control point}
+#'         \item{C}{Draw a cubic Bézier curve to the point, followed by two
+#'                  "B" rows that give the coordinates of the control points}
+#'         
+#'         More details can be found in sections 8.3.4 to 8.3.7 of the SVG
+#'         specification. (\url{http://www.w3.org/TR/SVG/paths.html})
+#' 
+#' @export
+#' 
+#' @author Yixuan Qiu <\url{http://statr.me/}>
+#' 
+#' @examples
+#' R = glyph_outline("R", family = "sans", face = "bold")
+#' head(R, 20)
 glyph_outline = function(ch = "a", family = "sans", face = "regular")
 {
     ch = as.character(ch)
@@ -9,10 +42,12 @@ glyph_outline = function(ch = "a", family = "sans", face = "regular")
                   bolditalic = 4L,
                   stop("unsupported font face"))
     face = as.integer(face)
-    .Call("glyph_outline", ch, family, face, PACKAGE = "fontr")
+    dat = .Call("glyph_outline", ch, family, face, PACKAGE = "fontr")
+    class(dat) = c("glyph_outline", "data.frame")
+    dat
 }
 
-#' Extracting glyph outline of characters as polygons
+#' Extracting the glyph outline of a character as polygons
 #' 
 #' This function extracts the outline of character glyphs contained in a font,
 #' and converts the outline into polygons.
@@ -51,7 +86,7 @@ glyph_polygon = function(ch = "a", family = "sans", face = "regular", nseg = 10)
     face = as.integer(face)
     nseg = as.integer(nseg)
     dat = .Call("glyph_polygon", ch, family, face, nseg, PACKAGE = "fontr")
-    class(dat) = "glyph_polygon"
+    class(dat) = c("glyph_polygon", "data.frame")
     dat
 }
 
