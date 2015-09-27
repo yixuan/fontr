@@ -8,7 +8,7 @@ simply makes it work in the R level.
 ## Quick Examples
 
 The code below generates a matrix representing the bitmap image of the character
-"R", given the specification of the font.
+"C", given the specification of the font.
 
 
 ```r
