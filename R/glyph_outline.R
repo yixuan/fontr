@@ -28,7 +28,8 @@ glyph_outline = function(ch = "a", family = "sans", face = "regular")
 #'               between 5~20 would be enough.
 #' 
 #' @return A data frame with class "glyph_polygon" that contains two columns,
-#'         giving the x and y coordinates of the outline.
+#'         giving the x and y coordinates of the outline. Rows that contain
+#'         \code{NA} represents the start of a new polygon path.
 #' 
 #' @export
 #' 
