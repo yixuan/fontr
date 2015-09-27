@@ -21,7 +21,7 @@
 #'         \item{C}{Draw a cubic Bezier curve to the point, followed by two
 #'                  "B" rows that give the coordinates of the control points}
 #'         
-#'         More details can be found in sections 8.3.4 to 8.3.7 of the SVG
+#'         More details can be found in sections 8.3.2 to 8.3.7 of the SVG
 #'         specification. (\url{http://www.w3.org/TR/SVG/paths.html})
 #' 
 #' @export
